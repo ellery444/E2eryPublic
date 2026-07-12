@@ -3,82 +3,718 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="E2ery Turing 个人主页：物理、Linux、实验、写作与项目。">
   <title>E2ery Turing</title>
 
   <style>
+    :root {
+      --bg: #080a0d;
+      --panel: rgba(14, 17, 22, 0.84);
+      --panel-strong: rgba(17, 20, 26, 0.94);
+      --text: #d8e0d8;
+      --muted: #879287;
+      --line: rgba(92, 103, 115, 0.45);
+      --accent: #4f9b36;
+      --accent-soft: rgba(79, 155, 54, 0.12);
+      --link: #7fb6ff;
+      --warn: #facc15;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    }
+
+    body.day {
+      --bg: #f5f5f7;
+      --panel: rgba(255, 255, 255, 0.78);
+      --panel-strong: rgba(255, 255, 255, 0.9);
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --line: rgba(0, 0, 0, 0.08);
+      --accent: #31506f;
+      --accent-soft: rgba(0, 113, 227, 0.07);
+      --link: #0066cc;
+      --warn: #fcb95c;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.07);
+    }
+
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
       background:
-        radial-gradient(circle at 50% 0%, rgba(0, 113, 227, 0.10), transparent 36%),
-        #f5f5f7;
-      color: #1d1d1f;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        linear-gradient(90deg, rgba(47, 125, 18, 0.045) 1px, transparent 1px),
+        linear-gradient(rgba(47, 125, 18, 0.035) 1px, transparent 1px),
+        var(--bg);
+      background-size: 36px 36px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    body.day {
+      background:
+        radial-gradient(circle at 50% -18%, rgba(0, 113, 227, 0.11), transparent 38%),
+        linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+      background-size: auto;
+    }
+
+    a {
+      color: inherit;
     }
 
     main {
-      width: min(860px, 100%);
-      padding: clamp(34px, 7vw, 72px);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.08);
-      backdrop-filter: blur(20px);
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--panel-strong) 88%, transparent);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a,
+    button,
+    .button {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 11px;
+      background: var(--accent-soft);
+      color: var(--link);
+      text-decoration: none;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    nav a:hover,
+    button:hover,
+    .button:hover {
+      border-color: var(--accent);
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.45fr 0.75fr;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .panel,
+    .card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .panel {
+      border-radius: 22px;
+      padding: 24px;
+    }
+
+    .hero {
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .eyebrow {
-      margin-bottom: 16px;
-      color: #31506f;
+      margin-bottom: 10px;
+      color: var(--accent);
       font-size: 0.78rem;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(3rem, 10vw, 6.5rem);
-      line-height: 0.95;
-      letter-spacing: -0.055em;
+      font-size: clamp(3rem, 8vw, 6.3rem);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
     }
 
     p {
-      max-width: 620px;
-      margin: 24px 0 0;
-      color: #6e6e73;
-      font-size: 1.1rem;
-      line-height: 1.75;
+      line-height: 1.72;
+    }
+
+    .subtitle {
+      max-width: 680px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
     }
 
     .status {
-      display: inline-flex;
-      margin-top: 34px;
-      padding: 9px 14px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 24px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
       border-radius: 999px;
-      color: #0066cc;
-      background: rgba(0, 113, 227, 0.06);
+      padding: 8px 12px;
+      background: var(--panel-strong);
+      color: var(--muted);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .pill strong {
+      color: var(--accent);
+      font-weight: 650;
+    }
+
+    .clock-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .clock {
+      font-size: clamp(2.1rem, 6vw, 3.5rem);
+      font-weight: 750;
+      letter-spacing: -0.04em;
+    }
+
+    .date,
+    .muted {
+      color: var(--muted);
+    }
+
+    .quote {
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--warn);
+      line-height: 1.65;
+    }
+
+    section {
+      scroll-margin-top: 90px;
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 190px;
+      padding: 20px;
+      border-radius: 18px;
+      transition: transform 0.14s ease, border-color 0.14s ease,
+        background 0.14s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: var(--panel-strong);
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card-link {
+      display: block;
+      text-decoration: none;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 9px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .list li:last-child {
+      border-bottom: 0;
+    }
+
+    .list strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .link-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    footer {
+      margin-top: 26px;
+      padding: 18px 4px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .tiny-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    /* 向上/向下拖动切换主题时，禁止文字被选中。 */
+    body.theme-dragging,
+    body.theme-dragging * {
+      cursor: ns-resize !important;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+    }
+
+    @media (max-width: 900px) {
+      header,
+      .two {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .topbar {
+        position: static;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 620px) {
+      main {
+        width: min(100% - 20px, 1120px);
+        padding-top: 10px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel,
+      .card {
+        border-radius: 16px;
+      }
+
+      .panel {
+        padding: 19px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 5px;
+        text-align: left;
+      }
     }
   </style>
 </head>
 
 <body>
   <main>
-    <div class="eyebrow">JUST FOR ENTERTAINMENT</div>
-    <h1>E2ery Turing</h1>
+    <div class="topbar">
+      <a class="brand" href="#top">E2ery Turing</a>
 
-    <p>
-      Have FUN, Dr.<br>
-      This is the first public test of my personal website.
-    </p>
+      <nav aria-label="导航">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#now">Now</a>
+        <a href="#links">Links</a>
+        <button id="themeButton" type="button">Day</button>
+      </nav>
+    </div>
 
-    <div class="status">Public test online</div>
+    <header id="top">
+      <section class="panel hero">
+        <div>
+          <div class="eyebrow">JUST FOR ENTERTAINMENT</div>
+          <h1>E2ery Turing</h1>
+
+          <!-- EDIT:公开介绍 -->
+          <p class="subtitle">
+            物理系研究生，Arch享受者，推理高手，FPS黑洞，目前更新内容：你和KeeganP.Russ的幻想恋爱剧情。
+          </p>
+        </div>
+
+        <div class="status">
+          <div class="pill">Mode: <strong>Public</strong></div>
+          <div class="pill">Built on: <strong>Arch</strong></div>
+          <div class="pill">Status: <strong>Still experimenting</strong></div>
+        </div>
+      </section>
+
+      <aside class="panel clock-panel">
+        <div>
+          <div class="clock" id="clock">--:--:--</div>
+          <div class="date" id="date">Loading...</div>
+        </div>
+
+        <div class="quote" id="quote">GOOD DAY, Dr.</div>
+      </aside>
+    </header>
+
+    <section class="section panel" id="about">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">ABOUT</div>
+          <h2>关于</h2>
+        </div>
+      </div>
+
+      <p>
+        我只是觉得做个网站给大家吃点低脂东西很酷。
+      </p>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">PROJECTS</div>
+          <h2>项目</h2>
+        </div>
+        <p>内容随机更新/删除</p>
+      </div>
+
+      <div class="grid">
+        <a class="card card-link" href="pages/arch.html" aria-label="Arch Linux Lab">
+          <h3>Arch Linux Lab</h3>
+          <p>系统安装、调整、脚本、问题以及修改。</p>
+          <div class="card-meta">
+            <span class="tag">Linux</span>
+            <span class="tag">KDE</span>
+            <span class="tag">Scripts</span>
+          </div>
+        </a>
+
+        <a class="card card-link" href="pages/docker.html" aria-label="Docker Zoo">
+          <h3>Docker Zoo</h3>
+          <p>控制中心</p>
+          <div class="card-meta">
+            <span class="tag">Docker</span>
+            <span class="tag">Self-hosting</span>
+          </div>
+        </a>
+
+        <a class="card card-link" href="pages/security.html" aria-label="Security Practice">
+          <h3>Security Practice</h3>
+          <p>Web 请求分析与合法靶场练习记录</p>
+          <div class="card-meta">
+            <span class="tag">Web Security</span>
+            <span class="tag">HAVE FUN</span>
+          </div>
+        </a>
+
+        <a class="card card-link" href="pages/physics.html" aria-label="Physics Notes">
+          <h3>Physics Notes</h3>
+          <p>实验记录</p>
+          <div class="card-meta">
+            <span class="tag">Physics</span>
+            <span class="tag">LaTeX</span>
+          </div>
+        </a>
+
+        <a class="card card-link" href="pages/writing.html" aria-label="Writing">
+          <h3>Writing</h3>
+          <p>小说、梗、坑，Keegan个人乙女向实体小说绝赞数调中！</p>
+          <div class="card-meta">
+            <span class="tag">Fiction</span>
+            <span class="tag">Mystery</span>
+          </div>
+        </a>
+
+        <a class="card card-link" href="pages/experiments.html" aria-label="Small Experiments">
+          <h3>Small Experiments</h3>
+          <p>网页、自动化、小工具</p>
+          <div class="card-meta">
+            <span class="tag">HTML</span>
+            <span class="tag">Python</span>
+            <span class="tag">Chaos</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section two" id="now">
+      <div class="panel">
+        <div class="eyebrow">NOW</div>
+        <h2>最近在做</h2>
+
+        <!-- EDIT: 更新这里即可，不需要改 JS -->
+        <ul class="list">
+          <li>
+            <strong>一通操作后你成了Keenan的魔王护</strong>
+            <span class="muted">更新中</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="eyebrow">UPDATES</div>
+        <h2>最近更新</h2>
+
+        <ul class="list">
+          <li>
+            <strong>2026-07 · Public test online</strong>
+            <span class="muted">GitHub Pages 首次部署成功。</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section panel" id="links">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">LINKS</div>
+          <h2>个人分身</h2>
+        </div>
+        <p>可以在这里找到我</p>
+      </div>
+
+      <div class="link-list">
+        <a class="button" href="https://github.com/ellery444" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+
+        <a class="button" href="https://github.com/ellery444/E2eryPublic" target="_blank" rel="noreferrer">
+          Website Source
+        </a>
+        <a class="button" href="https://xhslink.com/m/7K7wURsXgn3">小红书</a>
+
+        <a class="button" href="https://weibo.com/u/7421241635">微博</a>
+      </div>
+
+      <p class="tiny-note">
+        提醒：不要在社交软件宣传我的网站！（坏东西私下享受就行）
+      </p>
+    </section>
+
+    <footer>
+      <div>E2ery Turing · Built for fun.</div>
+      <div class="tiny-note">Last edited manually. Probably on Arch.</div>
+    </footer>
   </main>
+
+  <script>
+    const quotes = [
+      "GOOD DAY, Dr.",
+      "Have fun, Dr.",
+      "Tidy up.",
+      "Take a break.",
+      "Good luck, Dr.",
+      "Nice work.",
+    ];
+
+    function updateClock() {
+      const now = new Date();
+
+      document.getElementById("clock").textContent =
+        now.toLocaleTimeString("zh-CN", { hour12: false });
+
+      document.getElementById("date").textContent =
+        now.toLocaleDateString("zh-CN", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+    }
+
+    function setQuote() {
+      const index = Math.floor(Math.random() * quotes.length);
+      document.getElementById("quote").textContent = quotes[index];
+    }
+
+    function applyTheme(theme) {
+      const isDay = theme === "day";
+      document.body.classList.toggle("day", isDay);
+
+      const button = document.getElementById("themeButton");
+      button.textContent = isDay ? "Night" : "Day";
+      button.setAttribute(
+        "aria-label",
+        isDay ? "切换到夜间模式" : "切换到日间模式"
+      );
+
+      localStorage.setItem("e2eryPublicTheme", theme);
+    }
+
+    document.getElementById("themeButton").addEventListener("click", () => {
+      applyTheme(document.body.classList.contains("day") ? "night" : "day");
+    });
+
+    let themeDragStartY = null;
+    let themeDragStartX = null;
+    let themeDragTriggered = false;
+
+    function shouldIgnoreThemeDrag(event) {
+      const target = event.target;
+      return Boolean(
+        target.closest("input, textarea, button, select, option")
+      );
+    }
+
+    function startThemeDrag(event) {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      if (shouldIgnoreThemeDrag(event)) return;
+
+      themeDragStartY = event.clientY;
+      themeDragStartX = event.clientX;
+      themeDragTriggered = false;
+      document.body.classList.add("theme-dragging");
+    }
+
+    function moveThemeDrag(event) {
+      if (themeDragStartY === null || themeDragStartX === null) return;
+
+      const dy = event.clientY - themeDragStartY;
+      const dx = event.clientX - themeDragStartX;
+
+      if (Math.abs(dy) > 8) {
+        event.preventDefault();
+      }
+
+      if (Math.abs(dy) < 90) return;
+      if (Math.abs(dy) < Math.abs(dx) * 1.2) return;
+
+      applyTheme(dy > 0 ? "night" : "day");
+
+      themeDragTriggered = true;
+      themeDragStartY = null;
+      themeDragStartX = null;
+    }
+
+    function endThemeDrag() {
+      document.body.classList.remove("theme-dragging");
+      themeDragStartY = null;
+      themeDragStartX = null;
+    }
+
+    document.addEventListener("pointerdown", startThemeDrag);
+    document.addEventListener("pointermove", moveThemeDrag, { passive: false });
+    document.addEventListener("pointerup", endThemeDrag);
+    document.addEventListener("pointercancel", endThemeDrag);
+
+    document.addEventListener("dragstart", event => {
+      if (document.body.classList.contains("theme-dragging")) {
+        event.preventDefault();
+      }
+    });
+
+    document.addEventListener("click", event => {
+      if (themeDragTriggered) {
+        event.preventDefault();
+        event.stopPropagation();
+        themeDragTriggered = false;
+      }
+    }, true);
+
+    const savedTheme = localStorage.getItem("e2eryPublicTheme");
+    const systemPrefersDay = window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: light)").matches;
+
+    applyTheme(savedTheme || (systemPrefersDay ? "day" : "night"));
+    updateClock();
+    setQuote();
+    setInterval(updateClock, 1000);
+  </script>
 </body>
 </html>
