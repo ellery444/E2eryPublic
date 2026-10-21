@@ -1,30 +1,4 @@
-:root {
-  --bg: #080a0d;
-  --panel: rgba(14, 17, 22, 0.86);
-  --panel-strong: rgba(17, 20, 26, 0.95);
-  --text: #d8e0d8;
-  --muted: #879287;
-  --line: rgba(92, 103, 115, 0.45);
-  --accent: #4f9b36;
-  --accent-soft: rgba(79, 155, 54, 0.12);
-  --link: #7fb6ff;
-  --warn: #facc15;
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
-}
 
-body.day {
-  --bg: #f5f5f7;
-  --panel: rgba(255, 255, 255, 0.8);
-  --panel-strong: rgba(255, 255, 255, 0.94);
-  --text: #1d1d1f;
-  --muted: #6e6e73;
-  --line: rgba(0, 0, 0, 0.08);
-  --accent: #31506f;
-  --accent-soft: rgba(0, 113, 227, 0.07);
-  --link: #0066cc;
-  --warn: #9a5b00;
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.07);
-}
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -42,12 +16,6 @@ body {
   background-size: 36px 36px;
 }
 
-body.day {
-  background:
-    radial-gradient(circle at 50% -18%, rgba(0, 113, 227, 0.11), transparent 38%),
-    linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
-  background-size: auto;
-}
 
 body.theme-dragging,
 body.theme-dragging * {
